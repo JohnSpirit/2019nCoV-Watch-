@@ -33,7 +33,7 @@ int main()
 		date_ptr = strtok(_info, delim);
 		time_ptr = strtok(NULL, delim);
 		sscanf(_info + 17, "%d,%d,%d,%d\n", &infected, &suspicious, &cured, &death);//提取
-		printf("截至 %s %s,全国 确诊 %d 例 疑似 %d 例 治愈 %d 例 死亡 %d 例\n", date_ptr, time_ptr, infected, suspicious, cured, death);
+		printf("截至 %s %s,全国 确诊 %4d 例 疑似 %4d 例 治愈 %4d 例 死亡 %4d 例\n", date_ptr, time_ptr, infected, suspicious, cured, death);
 		strcpy(Lasttime, time_ptr);
 	}
 	fclose(fp2);
@@ -59,6 +59,7 @@ int main()
 		strncpy(data, ptr, 2048);
 		sscanf(data, "%*s%s%s%*s%*s%*s%*s%*s%s%*s%*s%*s%*s%s%*s%*s%*s%*s%s%*s%*s%*s%*s%s", Date, Time, inf_str, sus_str, cur_str, dea_str);
 		//#4169e2\">%d</span>
+		Time[5] = 0;
 		sscanf(inf_str + 9, "%d", &infected);
 		sscanf(sus_str + 9, "%d", &suspicious);
 		sscanf(cur_str + 9, "%d", &cured);
@@ -66,7 +67,7 @@ int main()
 
 		if (strcmp(Lasttime, Time))//当数据有更新时打印并存盘
 		{
-			printf("截至 %s %s,全国 确诊 %d 例 疑似 %d 例 治愈 %d 例 死亡 %d 例\n", Date, Time, infected, suspicious, cured, death);
+			printf("截至 %s %s,全国 确诊 %4d 例 疑似 %4d 例 治愈 %4d 例 死亡 %4d 例\n", Date, Time, infected, suspicious, cured, death);
 			fprintf(fp2, "%s,%s,%d,%d,%d,%d\n", Date, Time, infected, suspicious, cured, death);
 			strcpy(Lasttime, Time);
 		}
